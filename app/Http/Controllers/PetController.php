@@ -63,9 +63,11 @@ class PetController extends Controller
             'data_de_aniversario.date' => 'A DATA DE ANIVERSÁRIO deve ser uma data válida',
         ]);
 
-        if ($request->hasFile('foto')) {
-            $path = $request->file('foto')->store('foto', 'public');
-            $data['foto'] = Storage::url($path);
+        if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
+            $foto = $request->file('foto');
+            $nomeFoto = $foto->hashName();
+            $foto->move(storage_path('app/public/fotos'), $nomeFoto);
+            $data['foto'] = $nomeFoto;
         }
 
         $pet = $this->pets->create($data);
