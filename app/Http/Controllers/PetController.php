@@ -65,7 +65,7 @@ class PetController extends Controller
 
         if ($request->hasFile('foto')) {
             $path = $request->file('foto')->store('foto', 'public');
-            $data['foto'] = url('storage/'.$path);
+            $data['foto'] = Storage::url($path);
         }
 
         $pet = $this->pets->create($data);
@@ -87,7 +87,7 @@ class PetController extends Controller
      * Update the specified resource in storage.
      */
 
-     // consertar validacoes
+    // consertar validacoes
     public function update(Request $request, string $id): JsonResponse
     {
         $pet = $this->pets->findOrFail($id);
