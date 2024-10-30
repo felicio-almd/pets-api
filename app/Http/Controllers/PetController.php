@@ -32,7 +32,7 @@ class PetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
             'nome' => 'required|string|max:50',
@@ -74,7 +74,7 @@ class PetController extends Controller
 
         $pet = $this->pets->create($data);
 
-        return response()->json([$pet, 'message' => 'Pet criado com sucesso'], Response::HTTP_CREATED);
+        return response()->json(['message' => 'Pet criado com sucesso', $pet], Response::HTTP_CREATED);
     }
 
     /**
@@ -140,13 +140,13 @@ class PetController extends Controller
         }
         $pet->update($data);
 
-        return response()->json([$pet, 'message' => 'Pet atualizado com sucesso'], Response::HTTP_OK);
+        return response()->json(['message' => 'Pet atualizado com sucesso', $pet], Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $pet = $this->pets->find($id);
         $pet->delete();
