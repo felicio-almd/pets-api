@@ -123,4 +123,3 @@ EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint"]
 
-RUN echo "php_admin_value open_basedir /app/storage/app/public:/var/www/html:/dev/stdout:/tmp" >> /usr/local/etc/php/php.ini
