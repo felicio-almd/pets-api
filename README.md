@@ -1,5 +1,7 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
+<a href="https://pets-api.fly.dev/api/pets" target="_blank">LINK PARA API -> "pets-api.fly.dev/api/pets"</a>
+
 # RestAPI project for [ENCOMP](https://www.encomp.com.br/) backend course
 
 Uma API RESTful desenvolvida para gerenciar os atributos dos pets da UFES. Esta API foi criada em PHP utilizando o framework Laravel e armazena os dados em um banco de dados PostgreSQL/MYSQL, projeto utilizado como base para aula do minicurso de backend ministrando no ENCOMP(encomp.com.br) para que os alunos tenham fundamentos de orientação a objetos, aprendam crud e boas práticas de programação.
