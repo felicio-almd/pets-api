@@ -65,9 +65,11 @@ class PetController extends Controller
 
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
             $foto = $request->file('foto');
-            $nomeFoto = $foto->hashName();
-            $foto->move(storage_path('app/public/fotos'), $nomeFoto);
-            $data['foto'] = $nomeFoto;
+            $nomeFoto = $foto->hashName(); // Gera um nome único para a imagem
+            $foto->move(storage_path('app/public/fotos'), $nomeFoto); // Move a imagem para o diretório
+
+            // Cria a URL completa da imagem e armazena na variável $data
+            $data['foto'] = asset('storage/fotos/'.$nomeFoto);
         }
 
         $pet = $this->pets->create($data);

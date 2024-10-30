@@ -60,7 +60,6 @@ WORKDIR /var/www/html
 RUN composer install --optimize-autoloader --no-dev \
     && mkdir -p storage/logs \
     && php artisan optimize:clear \
-    && php artisan storage:link \
     && chown -R www-data:www-data /var/www/html \
     && echo "MAILTO=\"\"\n* * * * * www-data /usr/bin/php /var/www/html/artisan schedule:run" > /etc/cron.d/laravel \
     && sed -i='' '/->withMiddleware(function (Middleware \$middleware) {/a\
@@ -118,6 +117,11 @@ COPY --from=node_modules_go_brrr /app/public /var/www/html/public-npm
 RUN rsync -ar /var/www/html/public-npm/ /var/www/html/public/ \
     && rm -rf /var/www/html/public-npm \
     && chown -R www-data:www-data /var/www/html/public
+
+
+
+RUN php artisan storage:link
+RUN chmod -R 775 storage && chown -R www-data:www-data storage
 
 # 5. Setup Entrypoint
 EXPOSE 8080
