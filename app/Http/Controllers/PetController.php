@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PetRequest;
 use App\Models\Pet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,36 +33,9 @@ class PetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(PetRequest $request): JsonResponse
     {
-        $data = $request->validate([
-            'nome' => 'required|string|max:50',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'especie' => 'required|string',
-            'cor' => 'required|string|max:20',
-            'sexo' => 'required|string|max:20',
-            'raca' => 'nullable|string|max:30',
-            'peso' => 'required|integer',
-            'data_de_aniversario' => 'nullable|date',
-            'vacinas' => 'nullable|string',
-            'observacoes' => 'nullable|string',
-        ], [
-            'nome.required' => 'O campo NOME é obrigatório',
-            'nome.max' => 'O NOME não pode ter mais que 50 caracteres',
-            'foto.required' => 'A FOTO é obrigatória',
-            'foto.image' => 'O arquivo deve ser uma imagem',
-            'foto.mimes' => 'A FOTO deve ser do tipo: jpeg, png, jpg',
-            'foto.max' => 'A FOTO não pode ser maior que 2MB',
-            'especie.required' => 'A ESPÉCIE é obrigatória',
-            'cor.required' => 'A COR é obrigatória',
-            'cor.max' => 'A COR não pode ter mais que 20 caracteres',
-            'sexo.required' => 'O SEXO é obrigatório',
-            'sexo.max' => 'O SEXO não pode ter mais que 20 caracteres',
-            'raca.max' => 'A RAÇA não pode ter mais que 30 caracteres',
-            'peso.required' => 'O PESO é obrigatório',
-            'peso.integer' => 'O PESO deve ser um número inteiro',
-            'data_de_aniversario.date' => 'A DATA DE ANIVERSÁRIO deve ser uma data válida',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('foto') && $request->file('foto')->isValid()) {
             $foto = $request->file('foto');
@@ -96,34 +70,7 @@ class PetController extends Controller
     {
         $pet = $this->pets->findOrFail($id);
 
-        $data = $request->validate([
-            'nome' => 'sometimes|string|max:50',
-            'foto' => 'sometimes|image|mimes:jpeg,png,jpg|max:2048',
-            'especie' => 'sometimes|string',
-            'cor' => 'sometimes|string|max:20',
-            'sexo' => 'sometimes|string|max:20',
-            'raca' => 'nullable|string|max:30',
-            'peso' => 'sometimes|integer',
-            'data_de_aniversario' => 'nullable|date',
-            'vacinas' => 'nullable|string',
-            'observacoes' => 'nullable|string',
-        ], [
-            'nome.sometimes' => 'O campo NOME é obrigatório',
-            'nome.max' => 'O NOME não pode ter mais que 50 caracteres',
-            'foto.sometimes' => 'A FOTO é obrigatória',
-            'foto.image' => 'O arquivo deve ser uma imagem',
-            'foto.mimes' => 'A FOTO deve ser do tipo: jpeg, png, jpg',
-            'foto.max' => 'A FOTO não pode ser maior que 2MB',
-            'especie.sometimes' => 'A ESPÉCIE é obrigatória',
-            'cor.sometimes' => 'A COR é obrigatória',
-            'cor.max' => 'A COR não pode ter mais que 20 caracteres',
-            'sexo.sometimes' => 'O SEXO é obrigatório',
-            'sexo.max' => 'O SEXO não pode ter mais que 20 caracteres',
-            'raca.max' => 'A RAÇA não pode ter mais que 30 caracteres',
-            'peso.sometimes' => 'O PESO é obrigatório',
-            'peso.integer' => 'O PESO deve ser um número inteiro',
-            'data_de_aniversario.date' => 'A DATA DE ANIVERSÁRIO deve ser uma data válida',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('foto')) {
             try {
